@@ -15,7 +15,6 @@ body{
   text-align:center;
 }
 
-/* center */
 .center{
   position:absolute;
   top:50%;
@@ -23,7 +22,6 @@ body{
   transform:translate(-50%,-50%);
 }
 
-/* image */
 img{
   width:260px;
   border-radius:20px;
@@ -79,10 +77,17 @@ button{
 </div>
 
 <script>
-/* music → show next */
+
+/* 🎵 STRONG MUSIC START */
 function startMusic(){
-  document.getElementById('song').play();
-  document.getElementById('nextBtn').style.display="inline-block";
+  let s = document.getElementById('song');
+  s.muted = false;
+
+  s.play().then(()=>{
+    document.getElementById('nextBtn').style.display="inline-block";
+  }).catch(()=>{
+    alert("Screen pe ek baar click karo ❤️");
+  });
 }
 
 /* slow hearts */
