@@ -67,23 +67,27 @@ button{
   <img src="aladdin.jpg">
   <h1>Happy Valentine Day ❤️</h1>
 
-  <!-- SIMPLE MUSIC -->
   <button onclick="playMusic()">🎵 Play Music</button>
   <br>
   <button id="nextBtn" style="display:none;" onclick="goNext()">Next ❤️</button>
 
-  <audio id="song" src="music.mp3" loop></audio>
+  <!-- SAFEST AUDIO -->
+  <audio id="song" loop>
+    <source src="music.mp3" type="audio/mpeg">
+    <source src="music.wav" type="audio/wav">
+  </audio>
 </div>
 
 <script>
 
-/* MUSIC PLAY */
+/* play music */
 function playMusic(){
-  document.getElementById("song").play();
+  let audio = document.getElementById("song");
+  audio.play();
   document.getElementById("nextBtn").style.display="inline-block";
 }
 
-/* floating hearts */
+/* hearts */
 setInterval(()=>{
   let heart=document.createElement("div");
   heart.className="heart";
@@ -95,7 +99,7 @@ setInterval(()=>{
   setTimeout(()=>heart.remove(),11000);
 },700);
 
-/* NEXT → proposal */
+/* proposal */
 function goNext(){
   document.body.innerHTML = `
   <div style="margin-top:15%;">
@@ -113,7 +117,7 @@ function goNext(){
   `;
 }
 
-/* NO move */
+/* no move */
 function moveNo(){
   let x=Math.random()*window.innerWidth;
   let y=Math.random()*window.innerHeight;
@@ -121,7 +125,7 @@ function moveNo(){
   document.getElementById('noBtn').style.top=y+"px";
 }
 
-/* YES → video */
+/* yes video */
 function yesLove(){
   document.body.innerHTML = `
   <video width="100%" height="100%" autoplay controls>
