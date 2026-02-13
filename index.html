@@ -71,23 +71,18 @@ button{
   <br>
   <button id="nextBtn" style="display:none;" onclick="goNext()">Next ❤️</button>
 
-  <!-- SAFEST AUDIO -->
-  <audio id="song" loop>
-    <source src="music.mp3" type="audio/mpeg">
-    <source src="music.wav" type="audio/wav">
-  </audio>
+  <audio id="song" src="music.mp3" loop></audio>
 </div>
 
 <script>
 
 /* play music */
 function playMusic(){
-  let audio = document.getElementById("song");
-  audio.play();
+  document.getElementById("song").play();
   document.getElementById("nextBtn").style.display="inline-block";
 }
 
-/* hearts */
+/* floating hearts */
 setInterval(()=>{
   let heart=document.createElement("div");
   heart.className="heart";
@@ -125,13 +120,37 @@ function moveNo(){
   document.getElementById('noBtn').style.top=y+"px";
 }
 
-/* yes video */
+/* YES → video → fireworks + ring */
 function yesLove(){
   document.body.innerHTML = `
-  <video width="100%" height="100%" autoplay controls>
+  <video id="v" width="100%" height="100%" autoplay>
     <source src="kiss.mp4" type="video/mp4">
   </video>
   `;
+
+  let v = document.getElementById("v");
+
+  v.onended = function(){
+    document.body.innerHTML = `
+      <div style="margin-top:20%;">
+        <h1 style="font-size:45px;">Sumiya ❤️</h1>
+        <h2>Forever Starts Now 💍</h2>
+        <div style="font-size:60px; margin:20px;">💍</div>
+      </div>
+    `;
+
+    // fireworks
+    setInterval(()=>{
+      let f = document.createElement("div");
+      f.innerHTML = "🎆";
+      f.style.position = "absolute";
+      f.style.left = Math.random()*100+"vw";
+      f.style.top = Math.random()*100+"vh";
+      f.style.fontSize = "30px";
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(),1000);
+    },200);
+  }
 }
 </script>
 
