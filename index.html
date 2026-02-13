@@ -69,13 +69,13 @@ button{
 
 <script>
 
-/* music */
+/* MUSIC */
 function playMusic(){
   document.getElementById("song").play();
   document.getElementById("nextBtn").style.display="inline-block";
 }
 
-/* floating hearts */
+/* HEARTS */
 setInterval(()=>{
   let heart=document.createElement("div");
   heart.className="heart";
@@ -87,7 +87,7 @@ setInterval(()=>{
   setTimeout(()=>heart.remove(),11000);
 },700);
 
-/* proposal */
+/* PROPOSAL */
 function goNext(){
   document.body.innerHTML = `
   <div style="margin-top:15%;">
@@ -98,13 +98,14 @@ function goNext(){
     Main har pal tumhare saath jeena chahta hoon.<br>
     Will you be mine forever?
     </h1>
+
     <button onclick="yesLove()">YES 💖</button>
     <button id="noBtn" onmouseover="moveNo()" style="position:absolute;">NO 😜</button>
   </div>
   `;
 }
 
-/* NO run */
+/* NO BUTTON RUN */
 function moveNo(){
   let x=Math.random()*window.innerWidth;
   let y=Math.random()*window.innerHeight;
@@ -112,7 +113,7 @@ function moveNo(){
   document.getElementById('noBtn').style.top=y+"px";
 }
 
-/* YES → video → clean emotional ending */
+/* YES → VIDEO → MESSAGES */
 function yesLove(){
   document.body.innerHTML = `
     <video id="v" width="100%" height="100%" autoplay>
