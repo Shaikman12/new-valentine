@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Valentine Cinematic</title>
+<title>Valentine Ultimate</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
@@ -118,7 +118,7 @@ function moveNo(){
   document.getElementById('noBtn').style.top=y+"px";
 }
 
-/* YES → video → REAL fireworks */
+/* YES → video → fireworks → final message */
 function yesLove(){
   document.body.innerHTML = `
     <video id="v" width="100%" height="100%" autoplay>
@@ -168,6 +168,20 @@ function yesLove(){
     }
 
     setInterval(burst,700);
+
+    /* FINAL HUG MESSAGE */
+    setTimeout(()=>{
+      let msg=document.createElement("div");
+      msg.innerHTML = `
+        <h1 style="margin-top:80px;">Thank you Sumiya ❤️</h1>
+        <h2>I will love you forever 🤍</h2>
+      `;
+      msg.style.position="absolute";
+      msg.style.top="55%";
+      msg.style.width="100%";
+      msg.style.textAlign="center";
+      document.body.appendChild(msg);
+    },5000);
   }
 }
 </script>
