@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Valentine Special</title>
+<title>Valentine Cinematic</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
@@ -28,11 +28,7 @@ img{
   box-shadow:0 0 20px pink;
 }
 
-h1{
-  margin-top:20px;
-  font-size:38px;
-  color:#ff66cc;
-}
+h1{ font-size:38px; color:#ff66cc; }
 
 button{
   margin:12px;
@@ -53,10 +49,13 @@ button{
 }
 
 @keyframes fall{
-  to{
-    transform:translateY(110vh);
-    opacity:0;
-  }
+  to{ transform:translateY(110vh); opacity:0; }
+}
+
+canvas{
+  position:absolute;
+  top:0;
+  left:0;
 }
 </style>
 </head>
@@ -76,13 +75,13 @@ button{
 
 <script>
 
-/* play music */
+/* music */
 function playMusic(){
   document.getElementById("song").play();
   document.getElementById("nextBtn").style.display="inline-block";
 }
 
-/* floating hearts */
+/* hearts */
 setInterval(()=>{
   let heart=document.createElement("div");
   heart.className="heart";
@@ -105,14 +104,13 @@ function goNext(){
     Main har pal tumhare saath jeena chahta hoon.<br>
     Will you be mine forever?
     </h1>
-
     <button onclick="yesLove()">YES 💖</button>
     <button id="noBtn" onmouseover="moveNo()" style="position:absolute;">NO 😜</button>
   </div>
   `;
 }
 
-/* no move */
+/* NO run */
 function moveNo(){
   let x=Math.random()*window.innerWidth;
   let y=Math.random()*window.innerHeight;
@@ -120,36 +118,56 @@ function moveNo(){
   document.getElementById('noBtn').style.top=y+"px";
 }
 
-/* YES → video → fireworks + ring */
+/* YES → video → REAL fireworks */
 function yesLove(){
   document.body.innerHTML = `
-  <video id="v" width="100%" height="100%" autoplay>
-    <source src="kiss.mp4" type="video/mp4">
-  </video>
+    <video id="v" width="100%" height="100%" autoplay>
+      <source src="kiss.mp4" type="video/mp4">
+    </video>
   `;
 
   let v = document.getElementById("v");
 
   v.onended = function(){
     document.body.innerHTML = `
-      <div style="margin-top:20%;">
+      <canvas id="fire"></canvas>
+      <div style="position:absolute;top:40%;width:100%;text-align:center;">
         <h1 style="font-size:45px;">Sumiya ❤️</h1>
         <h2>Forever Starts Now 💍</h2>
-        <div style="font-size:60px; margin:20px;">💍</div>
+        <div style="font-size:60px;">💍</div>
       </div>
     `;
 
-    // fireworks
-    setInterval(()=>{
-      let f = document.createElement("div");
-      f.innerHTML = "🎆";
-      f.style.position = "absolute";
-      f.style.left = Math.random()*100+"vw";
-      f.style.top = Math.random()*100+"vh";
-      f.style.fontSize = "30px";
-      document.body.appendChild(f);
-      setTimeout(()=>f.remove(),1000);
-    },200);
+    const canvas = document.getElementById("fire");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function burst(){
+      let x = Math.random()*canvas.width;
+      let y = Math.random()*canvas.height/2;
+
+      for(let i=0;i<40;i++){
+        let angle = Math.random()*2*Math.PI;
+        let speed = Math.random()*4+2;
+        let px = x;
+        let py = y;
+        let life = 60;
+
+        function draw(){
+          if(life<=0) return;
+          ctx.fillStyle = "hsl("+Math.random()*360+",100%,60%)";
+          ctx.fillRect(px,py,3,3);
+          px += Math.cos(angle)*speed;
+          py += Math.sin(angle)*speed;
+          life--;
+          requestAnimationFrame(draw);
+        }
+        draw();
+      }
+    }
+
+    setInterval(burst,700);
   }
 }
 </script>
